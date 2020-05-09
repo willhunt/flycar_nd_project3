@@ -82,7 +82,7 @@ VehicleCommand QuadControl::GenerateMotorCommands(float collThrustCmd, V3F momen
     // Calculate repeated terms for speed
     float x_term = momentCmd.x / d;
     float y_term = momentCmd.y / d;
-    float z_term = momentCmd.z / kappa;
+    float z_term = - momentCmd.z / kappa;
     // kappa = k_m / k_f
     cmd.desiredThrustsN[0] = (collThrustCmd + x_term + y_term + z_term) / 4.f; // front left
     cmd.desiredThrustsN[1] = (collThrustCmd - x_term + y_term - z_term) / 4.f; // front right
@@ -149,15 +149,15 @@ V3F QuadControl::RollPitchControl(V3F accelCmd, Quaternion<float> attitude, floa
     Mat3x3F R = attitude.RotationMatrix_IwrtB();
 
     ////////////////////////////// BEGIN STUDENT CODE ///////////////////////////
-    if (collThrustCmd > 0) {
-        float R02_target = accelCmd.x * mass / collThrustCmd;
-        float R12_target = accelCmd.y * mass / collThrustCmd;
+    // if (collThrustCmd > 0) {
+        float R02_target = CONSTRAIN(- accelCmd.x * mass / collThrustCmd, -maxTiltAngle, maxTiltAngle);
+        float R12_target = CONSTRAIN(- accelCmd.y * mass / collThrustCmd, -maxTiltAngle, maxTiltAngle);
 
         float b_dot_c_x = kpBank * (R02_target - R(0, 2));
         float b_dot_c_y = kpBank * (R12_target - R(1, 2));
         pqrCmd.x = (R(1,0) * b_dot_c_x - R(0,0) * b_dot_c_y) / R(2,2);
         pqrCmd.y = (R(1,1) * b_dot_c_x - R(0,1) * b_dot_c_y) / R(2,2);
-    }
+    // }
     /////////////////////////////// END STUDENT CODE ////////////////////////////
 
     return pqrCmd;
@@ -244,8 +244,9 @@ V3F QuadControl::LateralPositionControl(V3F posCmd, V3F velCmd, V3F pos, V3F vel
     if (mag_accelCmd > maxAccelXY) {
         accelCmd = accelCmd * maxAccelXY / mag_accelCmd;
     }
+    accelCmd.z = 0;
     /////////////////////////////// END STUDENT CODE ////////////////////////////
-
+    
     return accelCmd;
 }
 
@@ -264,6 +265,7 @@ float QuadControl::YawControl(float yawCmd, float yaw)
 
     ////////////////////////////// BEGIN STUDENT CODE ///////////////////////////
     
+    // This is my solution
     if (yawCmd < 0) {  // Convert -ve angle to +ve between 0 & 2pi
         yawCmd  = fmodf(-yawCmd, 2 * F_PI);
         yawCmd = 2 * F_PI - yawCmd;
@@ -285,6 +287,17 @@ float QuadControl::YawControl(float yawCmd, float yaw)
     }
     // std::cout << delta_yaw << std::endl;
     float yawRateCmd = kpYaw * delta_yaw;
+
+
+    // This is the solution from the Udacity Python implementation
+    // yawCmd = fmodf(yawCmd, 2.0f * F_PI);
+    // float yawError = yawCmd - yaw;
+    // if (yawError > F_PI) {
+    //     yawError -= 2.0f * F_PI;
+    // } else if (yawError < -F_PI) {
+    //     yawError+= 2.0f * F_PI;
+    // }
+    // float yawRateCmd = kpYaw * yawError;
     
     /////////////////////////////// END STUDENT CODE ////////////////////////////
 

@@ -9,15 +9,15 @@ set(SOURCES
 )
 
 set(FILES
-    ../src/QuadControl.h
-    ../src/QuadControl.cpp
+    # ../src/QuadControl.h
+    # ../src/QuadControl.cpp
 )
 
 find_package(GTest REQUIRED)
 
 add_executable(${This} ${SOURCES} ${FILES})
 target_link_libraries(${This} PUBLIC    
-                    CPPSim          
+                    # CPPSim          
                     #   ${GTEST_LIBRARIES}
                     #   pthread
                     GTest::Main

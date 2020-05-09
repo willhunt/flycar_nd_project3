@@ -39,14 +39,14 @@ struct QuadControlTest : testing::Test {
 //     ASSERT_GT(thrust, 0);
 // }
 
-TEST_F(QuadControlTest, YAWCONTROL) {
-    float yawCmd = 3;
-    float yaw = 1;
-    float yawResult = quad_control->YawControl(yawCmd, yaw);
-    ASSERT_GT(yaw, 0);
-}
+// TEST_F(QuadControlTest, YAWCONTROL) {
+//     float yawCmd = 3;
+//     float yaw = 1;
+//     float yawResult = quad_control->YawControl(yawCmd, yaw);
+//     ASSERT_GT(yaw, 0);
+// }
 
-int main(int argc, char* argv[]) {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
+// int main(int argc, char* argv[]) {
+//     testing::InitGoogleTest(&argc, argv);
+//     return RUN_ALL_TESTS();
+// }
