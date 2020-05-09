@@ -206,7 +206,6 @@ float QuadControl::YawControl(float yawCmd, float yaw)
     } else if (delta_yaw < -F_PI) {
         delta_yaw += 2 * F_PI;
     }
-    // std::cout << delta_yaw << std::endl;
     float yawRateCmd = kpYaw * delta_yaw;
 
     return yawRateCmd;
