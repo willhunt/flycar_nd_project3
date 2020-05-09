@@ -8,6 +8,11 @@ The project involved implementing a cascaded flight controller for a quadcopter 
 
 *[Image from [Udacity](www.udacity.com)]*
 
+## Reference
+General symbols used:
+
+<img src="assets/symbol_table.png" width="300">
+
 ## Implementation
 ### Generate motor commands
 Tasks to implement the `QuadControl::GenerateMotorCommands` class method in `QuadControl.cpp`.
