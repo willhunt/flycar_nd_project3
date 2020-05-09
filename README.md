@@ -19,6 +19,8 @@ $ ./CPPSim
 Project instructions: [instructions.md](https://github.com/willhunt/flycar_nd_project3/blob/master/instructions.md)
 
 ## Writeup
+The writeup includes the solution code plus the math used to implemet the solutions.  
+
 Project writeup: [writeup.md](https://github.com/willhunt/flycar_nd_project3/blob/master/writeup.md)
 
 ## Notes
