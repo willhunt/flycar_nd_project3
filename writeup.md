@@ -49,9 +49,9 @@ VehicleCommand QuadControl::GenerateMotorCommands(float collThrustCmd, V3F momen
 ```
 
 ### Body rate control
-Tasks to implement the `QuadControl::BodyRateControl` class method in `QuadCOntrol.cpp`.
+Tasks to implement the `QuadControl::BodyRateControl` class method in `QuadControl.cpp`.
 
-For the body rate control a simple proportional controller is implemented to calculate an angular accelertion command `pqr_dot`. To convert this into the required moment command we use the relationship:
+For the body rate control a simple proportional controller is implemented to calculate an angular acceleration command `pqr_dot`. To convert this into the required moment command we use the relationship:
 
 <img src="https://latex.codecogs.com/svg.latex?\tau&space;=&space;I&space;\alpha" title="\tau = I \alpha" />
 
@@ -69,7 +69,7 @@ V3F QuadControl::BodyRateControl(V3F pqrCmd, V3F pqr)
 ```
 
 ### Roll and pitch control
-Tasks to implement the `QuadControl::RollPitchControl` class method in `QuadCOntrol.cpp`.
+Tasks to implement the `QuadControl::RollPitchControl` class method in `QuadControl.cpp`.
 
 Given a rotation matrix, R, to transform from the body frame to the world/inertial frame the accelerations in the body frame are given as (noting that f is collective thrust divided by mass):
 
