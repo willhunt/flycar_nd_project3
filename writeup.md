@@ -8,9 +8,9 @@ The project involved implementing a cascaded flight controller for a quadcopter 
 
 *[Image from [Udacity](www.udacity.com)]*
 
-## Imlementation
+## Implementation
 ### Generate motor commands
-Tasks to implement the `QuadControl::GenerateMotorCommands` class method in `QuadCOntrol.cpp`.
+Tasks to implement the `QuadControl::GenerateMotorCommands` class method in `QuadControl.cpp`.
 
 The known rotor physics equations are:  
 
@@ -71,7 +71,7 @@ V3F QuadControl::BodyRateControl(V3F pqrCmd, V3F pqr)
 ### Roll and pitch control
 Tasks to implement the `QuadControl::RollPitchControl` class method in `QuadCOntrol.cpp`.
 
-Given a rotation matrix, R, to transofrm from the body frame to the world/inertial frame the accelerations in the body frame are given as (noting that f is collective thrust divided by mass):
+Given a rotation matrix, R, to transform from the body frame to the world/inertial frame the accelerations in the body frame are given as (noting that f is collective thrust divided by mass):
 
 <img src="https://latex.codecogs.com/svg.latex?\begin{bmatrix}&space;\ddot{x}_x&space;\\&space;\ddot{x}_y&space;\\&space;\ddot{x}_z&space;\end{bmatrix}&space;=&space;\begin{bmatrix}&space;R_{00}&space;&&space;R_{01}&space;&&space;R_{02}&space;\\&space;R_{10}&space;&&space;R_{11}&space;&&space;R_{12}&space;\\&space;R_{20}&space;&&space;R_{21}&space;&&space;R_{22}&space;\\&space;\end{bmatrix}&space;\begin{bmatrix}&space;0&space;\\&space;0&space;\\&space;f_c&space;\end{bmatrix}&space;-&space;\begin{bmatrix}&space;0&space;\\&space;0&space;\\&space;g&space;\end{bmatrix}" title="\begin{bmatrix} \ddot{x}_x \\ \ddot{x}_y \\ \ddot{x}_z \end{bmatrix} = \begin{bmatrix} R_{00} & R_{01} & R_{02} \\ R_{10} & R_{11} & R_{12} \\ R_{20} & R_{21} & R_{22} \\ \end{bmatrix} \begin{bmatrix} 0 \\ 0 \\ f_c \end{bmatrix} - \begin{bmatrix} 0 \\ 0 \\ g \end{bmatrix}" />
 
@@ -83,7 +83,7 @@ These "control knobs" can then be adjusted:
 
 <img src="https://latex.codecogs.com/svg.latex?\begin{bmatrix}&space;\dot{b}^x_c&space;\\&space;\dot{b}^y_c&space;\end{bmatrix}&space;=&space;\begin{bmatrix}k_p(b^x_c&space;-&space;b^x_a)&space;\\&space;k_p(b^y_c&space;-&space;b^y_a)&space;\end{bmatrix}" title="\begin{bmatrix} \dot{b}^x_c \\ \dot{b}^y_c \end{bmatrix} = \begin{bmatrix}k_p(b^x_c - b^x_a) \\ k_p(b^y_c - b^y_a) \end{bmatrix}" />
 
-The body rates, p & q are calculated by commanding vaues of the rotation matrix:
+The body rates, p & q are calculated by commanding values of the rotation matrix:
 
 <img src="https://latex.codecogs.com/svg.latex?\begin{bmatrix}&space;p_c&space;\\&space;q_c&space;\\&space;\end{bmatrix}&space;=&space;\frac{1}{R_{22}}\begin{bmatrix}&space;R_{10}&space;&&space;-R_{00}&space;\\&space;R_{11}&space;&&space;-R_{01}&space;\end{bmatrix}&space;\begin{bmatrix}&space;\dot{b}^x_c&space;\\&space;\dot{b}^y_c&space;\end{bmatrix}" title="\begin{bmatrix} p_c \\ q_c \\ \end{bmatrix} = \frac{1}{R_{22}}\begin{bmatrix} R_{10} & -R_{00} \\ R_{11} & -R_{01} \end{bmatrix} \begin{bmatrix} \dot{b}^x_c \\ \dot{b}^y_c \end{bmatrix}" />
 
@@ -110,12 +110,12 @@ V3F QuadControl::RollPitchControl(V3F accelCmd, Quaternion<float> attitude, floa
 ```
 
 ### Altitude control
-Tasks to implement the `QuadControl::AltitiudeControl` class method in `QuadCOntrol.cpp`.
+Tasks to implement the `QuadControl::AltitudeControl` class method in `QuadControl.cpp`.
 
 Altitude control is implemented using:
-* PI control using postion
+* PI control using position
 * P control using velocity
-* Feedforward control using z acceleration
+* Feed-forward control using z acceleration
 
 From above we had defined the body accelerations as follows:
 
@@ -144,12 +144,12 @@ float QuadControl::AltitudeControl(float posZCmd, float velZCmd, float posZ, flo
 ```
 
 ### Lateral position control
-Tasks to implement the `QuadControl::LateralPositionControl` class method in `QuadCOntrol.cpp`.
+Tasks to implement the `QuadControl::LateralPositionControl` class method in `QuadControl.cpp`.
 
 Lateral position control is implemented using:
-* P control using postion
+* P control using position
 * P control using velocity
-* Feedforward control using z acceleration
+* Feed-forward control using z acceleration
 
 The commanded speed and accelerations are limited by `maxSpeedXY` and `maxAccelXY` by normalising the vectors. The return value is just this acceleration.
 
@@ -180,9 +180,9 @@ V3F QuadControl::LateralPositionControl(V3F posCmd, V3F velCmd, V3F pos, V3F vel
 ```
 
 ### Yaw control
-Tasks to implement the `QuadControl::YawControl` class method in `QuadCOntrol.cpp`.
+Tasks to implement the `QuadControl::YawControl` class method in `QuadControl.cpp`.
 
-Yaw control is implemented using a simple proportional controller. The only compleity comes from calculating the correct magnitue and direction of yaw based upon supposed possible input angles between -&#8734; and &#8734;. To do this all the angles are converted to the range 0 - &pi; and then if the difference between the angles is greater than &pi; the direction is changed.
+Yaw control is implemented using a simple proportional controller. The only complexity comes from calculating the correct magnitude and direction of yaw based upon supposed possible input angles between -&#8734; and &#8734;. To do this all the angles are converted to the range 0 - &pi; and then if the difference between the angles is greater than &pi; the direction is changed.
 
 ```cpp
 float QuadControl::YawControl(float yawCmd, float yaw)
